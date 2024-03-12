@@ -41,7 +41,7 @@ public class Olona {
     @Column(nullable = false)
     private String adress;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "poste_id", nullable = false)
     private Poste poste;
 

@@ -65,10 +65,12 @@ public class OlonaService {
         olonaDTO.setFanampiny(olona.getFanampiny());
         olonaDTO.setAdress(olona.getAdress());
         olonaDTO.setPoste(olona.getPoste() == null ? null : olona.getPoste().getId());
+        olonaDTO.setPosteName(olona.getPoste() == null ? null : olona.getPoste().getPoste());
         return olonaDTO;
     }
 
     private Olona mapToEntity(final OlonaDTO olonaDTO, final Olona olona) {
+        olona.setIdOlona(olonaDTO.getIdOlona());
         olona.setAnarana(olonaDTO.getAnarana());
         olona.setFanampiny(olonaDTO.getFanampiny());
         olona.setAdress(olonaDTO.getAdress());
