@@ -29,7 +29,4 @@ public class OlonaDTO {
     @NotNull
     private Long poste;
 
-    @NotNull
-    private String posteName;
-
 }

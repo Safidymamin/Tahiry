@@ -2,10 +2,13 @@ package io.tahiry.iombonana.service;
 
 import io.tahiry.iombonana.domain.Cotisation;
 import io.tahiry.iombonana.domain.Olona;
+import io.tahiry.iombonana.domain.Sazy;
 import io.tahiry.iombonana.model.CotisationDTO;
 import io.tahiry.iombonana.repos.CotisationRepository;
 import io.tahiry.iombonana.repos.OlonaRepository;
+import io.tahiry.iombonana.repos.SazyRepository;
 import io.tahiry.iombonana.util.NotFoundException;
+import io.tahiry.iombonana.util.ReferencedWarning;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,11 +19,13 @@ public class CotisationService {
 
     private final CotisationRepository cotisationRepository;
     private final OlonaRepository olonaRepository;
+    private final SazyRepository sazyRepository;
 
     public CotisationService(final CotisationRepository cotisationRepository,
-            final OlonaRepository olonaRepository) {
+            final OlonaRepository olonaRepository, final SazyRepository sazyRepository) {
         this.cotisationRepository = cotisationRepository;
         this.olonaRepository = olonaRepository;
+        this.sazyRepository = sazyRepository;
     }
 
     public List<CotisationDTO> findAll() {
@@ -68,6 +73,19 @@ public class CotisationService {
                 .orElseThrow(() -> new NotFoundException("olona not found"));
         cotisation.setOlona(olona);
         return cotisation;
+    }
+
+    public ReferencedWarning getReferencedWarning(final Long id) {
+        final ReferencedWarning referencedWarning = new ReferencedWarning();
+        final Cotisation cotisation = cotisationRepository.findById(id)
+                .orElseThrow(NotFoundException::new);
+        final Sazy cotiSazy = sazyRepository.findFirstByCoti(cotisation);
+        if (cotiSazy != null) {
+            referencedWarning.setKey("cotisation.sazy.coti.referenced");
+            referencedWarning.addParam(cotiSazy.getId());
+            return referencedWarning;
+        }
+        return null;
     }
 
 }

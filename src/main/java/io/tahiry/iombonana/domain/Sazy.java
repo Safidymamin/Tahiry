@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Olona {
+public class Sazy {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -30,19 +30,13 @@ public class Olona {
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
     )
-    private Long idOlona;
-
-    @Column(nullable = false, unique = true)
-    private String anarana;
-
-    @Column(nullable = false, unique = true)
-    private String fanampiny;
+    private Long id;
 
     @Column(nullable = false)
-    private String adress;
+    private Double vola;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "poste_id", nullable = false)
-    private Poste poste;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coti_id", unique = true)
+    private Cotisation coti;
 
 }

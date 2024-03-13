@@ -1,8 +1,8 @@
 package io.tahiry.iombonana.rest;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.tahiry.iombonana.model.CotisationDTO;
-import io.tahiry.iombonana.service.CotisationService;
+import io.tahiry.iombonana.model.FindramanaDTO;
+import io.tahiry.iombonana.service.FindramanaService;
 import io.tahiry.iombonana.util.ReferencedException;
 import io.tahiry.iombonana.util.ReferencedWarning;
 import jakarta.validation.Valid;
@@ -21,48 +21,48 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/api/cotisations", produces = MediaType.APPLICATION_JSON_VALUE)
-public class CotisationResource {
+@RequestMapping(value = "/api/findramanas", produces = MediaType.APPLICATION_JSON_VALUE)
+public class FindramanaResource {
 
-    private final CotisationService cotisationService;
+    private final FindramanaService findramanaService;
 
-    public CotisationResource(final CotisationService cotisationService) {
-        this.cotisationService = cotisationService;
+    public FindramanaResource(final FindramanaService findramanaService) {
+        this.findramanaService = findramanaService;
     }
 
     @GetMapping
-    public ResponseEntity<List<CotisationDTO>> getAllCotisations() {
-        return ResponseEntity.ok(cotisationService.findAll());
+    public ResponseEntity<List<FindramanaDTO>> getAllFindramanas() {
+        return ResponseEntity.ok(findramanaService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CotisationDTO> getCotisation(@PathVariable(name = "id") final Long id) {
-        return ResponseEntity.ok(cotisationService.get(id));
+    public ResponseEntity<FindramanaDTO> getFindramana(@PathVariable(name = "id") final Long id) {
+        return ResponseEntity.ok(findramanaService.get(id));
     }
 
     @PostMapping
     @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createCotisation(
-            @RequestBody @Valid final CotisationDTO cotisationDTO) {
-        final Long createdId = cotisationService.create(cotisationDTO);
+    public ResponseEntity<Long> createFindramana(
+            @RequestBody @Valid final FindramanaDTO findramanaDTO) {
+        final Long createdId = findramanaService.create(findramanaDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Long> updateCotisation(@PathVariable(name = "id") final Long id,
-            @RequestBody @Valid final CotisationDTO cotisationDTO) {
-        cotisationService.update(id, cotisationDTO);
+    public ResponseEntity<Long> updateFindramana(@PathVariable(name = "id") final Long id,
+            @RequestBody @Valid final FindramanaDTO findramanaDTO) {
+        findramanaService.update(id, findramanaDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
-    public ResponseEntity<Void> deleteCotisation(@PathVariable(name = "id") final Long id) {
-        final ReferencedWarning referencedWarning = cotisationService.getReferencedWarning(id);
+    public ResponseEntity<Void> deleteFindramana(@PathVariable(name = "id") final Long id) {
+        final ReferencedWarning referencedWarning = findramanaService.getReferencedWarning(id);
         if (referencedWarning != null) {
             throw new ReferencedException(referencedWarning);
         }
-        cotisationService.delete(id);
+        findramanaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

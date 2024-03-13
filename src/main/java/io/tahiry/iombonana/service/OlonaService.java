@@ -1,10 +1,12 @@
 package io.tahiry.iombonana.service;
 
 import io.tahiry.iombonana.domain.Cotisation;
+import io.tahiry.iombonana.domain.Findramana;
 import io.tahiry.iombonana.domain.Olona;
 import io.tahiry.iombonana.domain.Poste;
 import io.tahiry.iombonana.model.OlonaDTO;
 import io.tahiry.iombonana.repos.CotisationRepository;
+import io.tahiry.iombonana.repos.FindramanaRepository;
 import io.tahiry.iombonana.repos.OlonaRepository;
 import io.tahiry.iombonana.repos.PosteRepository;
 import io.tahiry.iombonana.util.NotFoundException;
@@ -20,13 +22,15 @@ public class OlonaService {
     private final OlonaRepository olonaRepository;
     private final PosteRepository posteRepository;
     private final CotisationRepository cotisationRepository;
+    private final FindramanaRepository findramanaRepository;
 
     public OlonaService(final OlonaRepository olonaRepository,
-            final PosteRepository posteRepository,
-            final CotisationRepository cotisationRepository) {
+            final PosteRepository posteRepository, final CotisationRepository cotisationRepository,
+            final FindramanaRepository findramanaRepository) {
         this.olonaRepository = olonaRepository;
         this.posteRepository = posteRepository;
         this.cotisationRepository = cotisationRepository;
+        this.findramanaRepository = findramanaRepository;
     }
 
     public List<OlonaDTO> findAll() {
@@ -65,12 +69,10 @@ public class OlonaService {
         olonaDTO.setFanampiny(olona.getFanampiny());
         olonaDTO.setAdress(olona.getAdress());
         olonaDTO.setPoste(olona.getPoste() == null ? null : olona.getPoste().getId());
-        olonaDTO.setPosteName(olona.getPoste() == null ? null : olona.getPoste().getPoste());
         return olonaDTO;
     }
 
     private Olona mapToEntity(final OlonaDTO olonaDTO, final Olona olona) {
-        olona.setIdOlona(olonaDTO.getIdOlona());
         olona.setAnarana(olonaDTO.getAnarana());
         olona.setFanampiny(olonaDTO.getFanampiny());
         olona.setAdress(olonaDTO.getAdress());
@@ -96,6 +98,12 @@ public class OlonaService {
         if (olonaCotisation != null) {
             referencedWarning.setKey("olona.cotisation.olona.referenced");
             referencedWarning.addParam(olonaCotisation.getId());
+            return referencedWarning;
+        }
+        final Findramana olonaFindramana = findramanaRepository.findFirstByOlona(olona);
+        if (olonaFindramana != null) {
+            referencedWarning.setKey("olona.findramana.olona.referenced");
+            referencedWarning.addParam(olonaFindramana.getId());
             return referencedWarning;
         }
         return null;
