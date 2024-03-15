@@ -76,7 +76,7 @@ public class OlonaService {
         olona.setAnarana(olonaDTO.getAnarana());
         olona.setFanampiny(olonaDTO.getFanampiny());
         olona.setAdress(olonaDTO.getAdress());
-        final Poste poste = olonaDTO.getPoste() == null ? null : posteRepository.findById(olonaDTO.getPoste())
+        final Poste poste = olonaDTO.getPoste() == null ? null : posteRepository.findById(olonaDTO.getPoste_id())
                 .orElseThrow(() -> new NotFoundException("poste not found"));
         olona.setPoste(poste);
         return olona;
