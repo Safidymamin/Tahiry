@@ -27,9 +27,6 @@ public class OlonaDTO {
     private String adress;
 
     @NotNull
-    private Long poste_id;
-
-    @NotNull
-    private String poste;
+    private Long poste;
 
 }

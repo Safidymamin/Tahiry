@@ -25,8 +25,8 @@ public class OlonaService {
     private final FindramanaRepository findramanaRepository;
 
     public OlonaService(final OlonaRepository olonaRepository,
-            final PosteRepository posteRepository, final CotisationRepository cotisationRepository,
-            final FindramanaRepository findramanaRepository) {
+                        final PosteRepository posteRepository, final CotisationRepository cotisationRepository,
+                        final FindramanaRepository findramanaRepository) {
         this.olonaRepository = olonaRepository;
         this.posteRepository = posteRepository;
         this.cotisationRepository = cotisationRepository;
@@ -68,7 +68,7 @@ public class OlonaService {
         olonaDTO.setAnarana(olona.getAnarana());
         olonaDTO.setFanampiny(olona.getFanampiny());
         olonaDTO.setAdress(olona.getAdress());
-        olonaDTO.setPoste_id(olona.getPoste() == null ? null : olona.getPoste().getId());
+        olonaDTO.setPoste(olona.getPoste() == null ? null : olona.getPoste().getId());
         return olonaDTO;
     }
 
@@ -76,7 +76,7 @@ public class OlonaService {
         olona.setAnarana(olonaDTO.getAnarana());
         olona.setFanampiny(olonaDTO.getFanampiny());
         olona.setAdress(olonaDTO.getAdress());
-        final Poste poste = olonaDTO.getPoste() == null ? null : posteRepository.findById(olonaDTO.getPoste_id())
+        final Poste poste = olonaDTO.getPoste() == null ? null : posteRepository.findById(olonaDTO.getPoste())
                 .orElseThrow(() -> new NotFoundException("poste not found"));
         olona.setPoste(poste);
         return olona;
