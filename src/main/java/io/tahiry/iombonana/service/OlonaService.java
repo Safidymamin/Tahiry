@@ -68,7 +68,7 @@ public class OlonaService {
         olonaDTO.setAnarana(olona.getAnarana());
         olonaDTO.setFanampiny(olona.getFanampiny());
         olonaDTO.setAdress(olona.getAdress());
-        olonaDTO.setPoste(olona.getPoste() == null ? null : olona.getPoste().getId());
+        olonaDTO.setPoste_id(olona.getPoste() == null ? null : olona.getPoste().getId());
         return olonaDTO;
     }
 

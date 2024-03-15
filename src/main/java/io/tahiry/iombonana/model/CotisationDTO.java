@@ -11,12 +11,15 @@ import lombok.Setter;
 public class CotisationDTO {
 
     private Long id;
-
     @NotNull
     private LocalDate date;
-
+    @NotNull
     private Double vola;
-
+    @NotNull
     private Long olona;
+    @NotNull
+    private String anarana;
+    @NotNull
+    private String fanampiny;
 
 }

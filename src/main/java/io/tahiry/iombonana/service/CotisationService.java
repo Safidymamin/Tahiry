@@ -63,6 +63,8 @@ public class CotisationService {
         cotisationDTO.setDate(cotisation.getDate());
         cotisationDTO.setVola(cotisation.getVola());
         cotisationDTO.setOlona(cotisation.getOlona() == null ? null : cotisation.getOlona().getIdOlona());
+        cotisationDTO.setAnarana(cotisation.getOlona() == null ? null : cotisation.getOlona().getAnarana());
+        cotisationDTO.setFanampiny(cotisation.getOlona()==null ? null : cotisation.getOlona().getFanampiny());
         return cotisationDTO;
     }
 
